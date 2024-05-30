@@ -13,11 +13,17 @@ const {
   AIRTEL,
   NMOBILE,
   MTN_SME2,
+  MTN_CG,
+  MTN_COUPON,
+  MTN_DIRECT,
 } = require("./API_DATA/newData");
 require("dotenv").config();
 const costPrices = [
   { network: "MTN", costPrice: 300 },
   { network: "MTN-CG", costPrice: 300 },
+  { network: "MTN-COUPON", costPrice: 300 },
+  { network: "MTN-DIRECT", costPrice: 300 },
+  { network: "MTN-SME2", costPrice: 300 },
   { network: "GLO", costPrice: 300 },
   { network: "AIRTEL", costPrice: 300 },
   { network: "9MOBILE", costPrice: 300 },
@@ -29,6 +35,9 @@ const populate = async () => {
     console.log("DB connected");
     await dataModel.create(MTN_SME);
     await dataModel.create(MTN_SME2);
+    await dataModel.create(MTN_CG);
+    await dataModel.create(MTN_COUPON);
+    await dataModel.create(MTN_DIRECT);
     await dataModel.create(AIRTEL);
     await dataModel.create(GLO);
     await dataModel.create(NMOBILE);
@@ -56,7 +65,7 @@ const populate = async () => {
     await dataModel.updateMany({ plan: "10GB" }, { $set: { volumeRatio: 10 } });
     await dataModel.updateMany({ plan: "15GB" }, { $set: { volumeRatio: 15 } });
     await dataModel.updateMany({ plan: "20GB" }, { $set: { volumeRatio: 20 } });
-    await Notification.create({ msg: "hello" });
+    await Notification.create({ msg: "Hello World" });
 
     console.log("Success!!");
     process.exit(0);

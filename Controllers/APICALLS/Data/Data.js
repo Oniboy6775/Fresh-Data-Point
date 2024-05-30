@@ -1,6 +1,7 @@
 const axios = require("axios");
 
 const BUYDATA = async ({ network, mobile_number, plan }) => {
+  console.log({ "req-key": process.env.DATARELOADED_API_KEY });
   try {
     const BuyDataResponse = await axios.post(
       `${process.env.DATARELOADED_API}/buy/data`,

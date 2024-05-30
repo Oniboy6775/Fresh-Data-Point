@@ -265,16 +265,19 @@ const Landing = () => {
             <div className="">
               <div className=" ">
                 <p className="uppercase text-blue-500">Office address</p>
-                <p>No 1, Zone A, Odo - Efo Osere Ilorin</p>
+                <p>
+                  Address No 18 behind Alh Ayo House sawmill area
+                  Ilorin, kwara state
+                </p>
               </div>
               <div className=" ">
                 <p className="uppercase text-blue-500">phone number</p>
-                <p>07035236371</p>
+                <p>07031362263</p>
               </div>
               <div className=" lowercase">
                 <p className="uppercase text-blue-500">Contact us</p>
                 <p>admin@freshDataPoint.com.ng</p>
-                <p>horlaseriolayinka@gmail.com</p>
+                <p>manmadenumber@gmail.com</p>
               </div>
             </div>
           </div>
