@@ -815,7 +815,7 @@ const updateWebhookUrl = async (req, res) => {
 const updateKyc = async (req, res) => {
   const { userId } = req.user;
   const { nin: ninNo, bvn: bvnNo } = req.body;
-  const { MONNIFY_API_URL, MONNIFY_API_ENCODED } = process.env;
+  const { MONNIFY_API_URL, MONNIFY_API_KEY, MONNIFY_API_SECRET } = process.env;
   if (!ninNo && !bvnNo) {
     return res.status(400).json({ msg: "Please provide Bvn/Nin" });
   }
@@ -823,12 +823,15 @@ const updateKyc = async (req, res) => {
   const { userName, email, bvn, nin } = await User.findOne({ _id: userId });
   if (bvn || nin)
     return res.status(400).json({ msg: "You have done your KYC before" });
+  const ApiKeyEncoded = Buffer.from(
+    MONNIFY_API_KEY + ":" + MONNIFY_API_SECRET
+  ).toString("base64");
   const response = await axios.post(
     `${MONNIFY_API_URL}/api/v1/auth/login`,
     {},
     {
       headers: {
-        Authorization: `Basic ${MONNIFY_API_ENCODED}`,
+        Authorization: `Basic ${ApiKeyEncoded}`,
       },
     }
   );
