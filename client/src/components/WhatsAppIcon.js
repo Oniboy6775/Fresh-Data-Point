@@ -21,7 +21,7 @@ const Container = styled.div`
   position: fixed;
   bottom: 1rem;
   right: 1.5rem;
-  z-index: 25;
+  z-index: 99;
   div {
     background-color: #25d366;
     display: flex;

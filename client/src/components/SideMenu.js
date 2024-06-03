@@ -43,7 +43,7 @@ const Container = styled.div`
   transition: var(--transition);
   background-color: var(--primary-700);
   color: var(--grey-100);
-  z-index: 10;
+  z-index: 99;
   /* @media (max-width: 678px) { */
   position: fixed;
   bottom: 0;

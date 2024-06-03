@@ -33,6 +33,8 @@ const populate = async () => {
   try {
     await mongoose.connect(process.env.MONGODB_URI);
     console.log("DB connected");
+    await dataModel.deleteMany();
+    await costPriceModel.deleteMany();
     await dataModel.create(MTN_SME);
     await dataModel.create(MTN_SME2);
     await dataModel.create(MTN_CG);

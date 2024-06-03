@@ -80,7 +80,7 @@ function ProfileHeader() {
             );
           })}
           <Dropdown.Divider />
-          {isAgent && (
+          {/* {isAgent && (
             <Dropdown.Divider>
               {agentSideBarButton.map((e) => (
                 <Dropdown.Item
@@ -105,7 +105,7 @@ function ProfileHeader() {
                 </Dropdown.Item>
               ))}
             </Dropdown.Divider>
-          )}
+          )} */}
           <Dropdown.Item onClick={logout}>Sign out</Dropdown.Item>
         </Dropdown>
         <DarkThemeToggle />

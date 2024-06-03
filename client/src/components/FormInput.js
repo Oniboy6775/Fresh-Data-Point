@@ -34,11 +34,6 @@ const FormInput = ({
     // <form className={`flex max-w-md flex-col gap-4 ${className}`}>
     <div className="w-full my-2">
       <div className="mb-2 block">
-        {/* <Label
-          htmlFor={name}
-          className="capitalize"
-          value={labelText || placeholder}
-        /> */}
         <FloatingLabel
           onChange={handleChange}
           variant="filled"
@@ -52,6 +47,7 @@ const FormInput = ({
           disabled={disabled}
           min={min}
           max={max}
+          className="text-lg"
         />
       </div>
       {/* <TextInput
