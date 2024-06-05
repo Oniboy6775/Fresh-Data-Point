@@ -9,6 +9,7 @@ const buyElectricity = async (payload) => {
       {
         headers: {
           Authorization: process.env.DATARELOADED_API_KEY,
+          "x-auth-apiKey": process.env.DATARELOADED_API_KEY,
         },
       }
     );
