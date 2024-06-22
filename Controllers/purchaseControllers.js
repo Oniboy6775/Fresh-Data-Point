@@ -49,7 +49,7 @@ const buyAirtime = async (req, res) => {
     const payload = {
       transactionId,
       planNetwork: NETWORK,
-      status: "processing",
+      status: "success",
       planName: amount,
       phoneNumber: mobile_number,
       amountToCharge,

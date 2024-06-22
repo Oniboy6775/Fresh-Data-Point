@@ -37,12 +37,12 @@ const DashBoard = () => {
 
   const [showAlert, setShowAlert] = useState(false);
   useEffect(() => {
-    if (user.userType === "smart earner") {
-      const time = Math.random() * 7000;
-      setTimeout(() => {
-        setShowAlert(true);
-      }, [time]);
-    }
+    // if (user.userType === "smart earner") {
+    //   const time = Math.random() * 7000;
+    //   setTimeout(() => {
+    //     setShowAlert(true);
+    //   }, [time]);
+    // }
   }, []);
 
   const navigation = [
