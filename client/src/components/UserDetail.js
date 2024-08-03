@@ -22,7 +22,7 @@ const UserDetails = ({
   bvn,
   nin,
 }) => {
-  const { handleChange } = useGlobalContext();
+  const { handleChange, resetUserPassword } = useGlobalContext();
   const handleInputChange = (e) => {
     let name = e.target.name;
     let value = e.target.value;
@@ -81,7 +81,12 @@ const UserDetails = ({
           >
             Upgrade user
           </button>
-          <button className="btn m-1 btn-danger">Delete User</button>
+          <button
+            className="btn m-1 btn-danger"
+            onClick={() => resetUserPassword(_id)}
+          >
+            Reset password
+          </button>
           <button onClick={close} className="btn m-1 btn-danger">
             close
           </button>
