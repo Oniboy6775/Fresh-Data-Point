@@ -150,4 +150,7 @@ export const initialState = {
   // KYC DETAILS
   bnn: "",
   nin: "",
+  // KYC DETAILS
+  verificationMethod: "nin",
+  verificationNo: "",
 };

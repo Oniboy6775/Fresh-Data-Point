@@ -1055,12 +1055,12 @@ export const AppProvider = ({ children }) => {
     }
   };
   const updateKyc = async (id) => {
-    const { bvn, nin } = state;
+    const { verificationMethod, verificationNo } = state;
     try {
       dispatch({ type: START_LOADING });
       let payload = {};
-      if (nin) payload.nin = nin;
-      if (bvn) payload.bvn = bvn;
+      if (verificationMethod == "nin") payload.nin = verificationNo;
+      if (verificationMethod == "bvn") payload.bvn = verificationNo;
       const { data } = await authFetch.post("/auth/updateKyc", payload);
       toast(data.msg);
       dispatch({ type: STOP_LOADING });
