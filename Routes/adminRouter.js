@@ -15,6 +15,7 @@ const {
   updateNotification,
   upgradeUser,
   resetUserPassword,
+  setSpecialPricing,
 } = require("../Controllers/adminController");
 const isAdmin = require("../Middleware/isAdmin");
 
