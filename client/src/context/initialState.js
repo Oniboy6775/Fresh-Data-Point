@@ -153,4 +153,16 @@ export const initialState = {
   // KYC DETAILS
   verificationMethod: "nin",
   verificationNo: "",
+  // Special pricing
+  productList2: [
+    "MTN-SME",
+    "MTN-CG",
+    "MTN-SME2",
+    "MTN-DIRECT",
+    "MTN-COUPON",
+    "GLO-CG",
+    "AIRTEL-CG",
+    "9MOBILE-SME",
+  ],
+  selectedProduct2: "MTN-SME",
 };

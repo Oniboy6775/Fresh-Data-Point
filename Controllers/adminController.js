@@ -377,6 +377,37 @@ const resetUserPassword = async (req, res) => {
     return res.status(500).json({ msg: "something went wrong" });
   }
 };
+const setSpecialPricing = async (req, res) => {
+  const { userId, productName, price } = req.body;
+  console.log(req.body);
+  if (!productName || !price)
+    return res.status(400).json({ msg: "All fields are required" });
+  try {
+    const specialUser = await User.findOne({ _id: userId });
+    let newPrices = [...specialUser.specialPrices];
+    const oldIndex = specialUser.specialPrices.findIndex(
+      (e) => e.productName === productName
+    );
+    if (oldIndex < 0) {
+      newPrices = [...newPrices, { productName, price }];
+    } else {
+      newPrices[oldIndex] = { productName, price };
+    }
+
+    const isUpdated = await User.updateOne(
+      { _id: userId },
+      { $set: { specialPrices: newPrices, isSpecial: true } }
+    );
+    console.log(newPrices);
+    console.log({ isUpdated });
+    res.status(200).json({
+      msg: `${productName} updated to ₦${price} for ${specialUser.userName}`,
+    });
+  } catch (e) {
+    res.status(500).json({ msg: "An error occur" });
+    console.log(e);
+  }
+};
 module.exports = {
   adminDetails,
   generateCoupon,
@@ -391,4 +422,5 @@ module.exports = {
   getNotification,
   upgradeUser,
   resetUserPassword,
+  setSpecialPricing,
 };

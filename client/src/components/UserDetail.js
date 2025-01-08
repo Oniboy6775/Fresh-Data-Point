@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import moment from "moment";
 import styled from "styled-components";
 import { useGlobalContext } from "../context/UserContext";
-
+import { Modal } from "./Modal";
+import FormRowSelect from "./FormRowSelect";
+import FormInput from "./FormInput";
 const UserDetails = ({
   close,
   userName,
@@ -19,10 +21,20 @@ const UserDetails = ({
   handleUpgradeUser,
   referredBy,
   accountNumbers,
+  isSpecial,
+  specialPrices,
   bvn,
   nin,
 }) => {
-  const { handleChange, resetUserPassword } = useGlobalContext();
+  const {
+    selectedProduct2,
+    amount,
+    isLoading,
+    productList2,
+    handleChange,
+    setSpecialPrice,
+    resetUserPassword,
+  } = useGlobalContext();
   const handleInputChange = (e) => {
     let name = e.target.name;
     let value = e.target.value;
@@ -59,6 +71,14 @@ const UserDetails = ({
             </p>
           ))}
         </div>
+        {isSpecial &&
+          specialPrices.length > 0 &&
+          specialPrices.map((e, index) => (
+            <div key={index} className="flex">
+              <p className="mr-4">{e.productName}</p>
+              <p>₦{e.price}</p>
+            </div>
+          ))}
         <div className="flex flex-wrap justify-center">
           <button
             className="btn m-1 btn-hipster"
@@ -86,6 +106,41 @@ const UserDetails = ({
             onClick={() => resetUserPassword(_id)}
           >
             Reset password
+          </button>{" "}
+          {showModal && (
+            <Modal
+              title="set special price"
+              buttons={[
+                { name: "set price", handleClick: () => setSpecialPrice(_id) },
+                {
+                  name: "close",
+                  className: "btn-danger",
+                  handleClick: toggleModal,
+                },
+              ]}
+              children={
+                <>
+                  <FormRowSelect
+                    list={productList2}
+                    name="selectedProduct2"
+                    labelText="select product"
+                    value={selectedProduct2}
+                    handleChange={handleInputChange}
+                  />
+                  <FormInput
+                    name="amount"
+                    value={amount}
+                    type="number"
+                    disabled={isLoading}
+                    labelText="amount"
+                    handleChange={handleInputChange}
+                  />
+                </>
+              }
+            />
+          )}
+          <button onClick={toggleModal} className="btn m-1 btn-danger">
+            Add special pricing
           </button>
           <button onClick={close} className="btn m-1 btn-danger">
             close

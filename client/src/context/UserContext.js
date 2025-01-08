@@ -1084,6 +1084,35 @@ export const AppProvider = ({ children }) => {
       dispatch({ type: STOP_LOADING });
     }
   };
+  const generateAccount = async (bankName) => {
+    try {
+      dispatch({ type: START_LOADING });
+      const { data } = await authFetch.post("/generateAcc", {
+        bankName,
+      });
+      toast(data.msg);
+      dispatch({ type: STOP_LOADING });
+      // fetchUser();
+      window.location.reload();
+    } catch (e) {
+      toast.error(e.response.data.msg);
+      dispatch({ type: STOP_LOADING });
+    }
+  };
+  const setSpecialPrice = async (userId) => {
+    try {
+      const { data } = await authFetch.post("/admin/setSpecialPrice", {
+        userId,
+        productName: state.selectedProduct2,
+        price: state.amount,
+      });
+      toast(data.msg);
+
+      console.log(data);
+    } catch (e) {
+      toast.error(e.response.data.msg);
+    }
+  };
   return (
     <AppContext.Provider
       value={{
@@ -1143,6 +1172,8 @@ export const AppProvider = ({ children }) => {
         getCostPriceAndSupplier,
         updateKyc,
         resetUserPassword,
+        generateAccount,
+        setSpecialPrice,
       }}
     >
       {children}

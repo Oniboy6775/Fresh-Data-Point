@@ -32,5 +32,6 @@ router.post("/refund/:id", auth, refund);
 router.get("/notification", auth, getNotification);
 router.post("/notification", auth, updateNotification);
 router.post("/resetUserPassword", auth, isAdmin, resetUserPassword);
+router.post("/setSpecialPrice", auth, isAdmin, setSpecialPricing);
 
 module.exports = router;
