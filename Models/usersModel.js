@@ -41,6 +41,8 @@ const userSchema = new mongoose.Schema({
     enum: ["smart earner", "reseller", "api user"],
   },
   balance: { type: Number, default: 0 },
+  isSpecial: { type: Boolean, default: false },
+  specialPrices: [{ productName: "", price: "" }],
   createdAt: {
     type: Date,
     default: Date.now,

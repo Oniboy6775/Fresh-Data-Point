@@ -68,6 +68,7 @@ const searchTransaction = async (req, res) => {
     acc += cur.trans_volume_ratio;
     return acc;
   }, 0);
+
   // Calculating profit for selected transactions
   const totalProfit = today.reduce((acc, cur) => {
     const currentProfit = isNaN(cur.trans_profit) ? 0 : cur.trans_profit;
@@ -132,44 +133,38 @@ const searchTransaction = async (req, res) => {
     return total;
   };
   let mtnSMESales = calculateStat("MTN", "SME");
-  let mtnSME2Sales = calculateStat("MTN", "SME2");
-  let mtnCGSales = calculateStat("MTN", "CG");
-  let mtnCOUPONSales = calculateStat("MTN", "COUPON");
-  let gloSMESales = calculateStat("GLO", "SME");
-  let gloCGSales = calculateStat("GLO", "CG");
-  let AirtelSMESales = calculateStat("AIRTEL", "SME");
+  let mtnDIRECTSales = calculateStat("MTN", "DATA_TRANSFER");
+  let mtnAwoofSales = calculateStat("MTN", "AWOOF");
   let AirtelCGSales = calculateStat("AIRTEL", "CG");
-  let NmobileCGSales = calculateStat("9MOBILE", "CG");
+  let AirtelAWOOFSales = calculateStat("AIRTEL", "AWOOF");
+  let gloCGSales = calculateStat("GLO", "CG");
+  let gloAWOOFSales = calculateStat("GLO", "AWOOF");
   let NmobileSMESales = calculateStat("9MOBILE", "SME");
   let totalDebit = calculateMoneyFlow("DEBIT");
   let totalCredit = calculateMoneyFlow("CREDIT");
-  // console.log({ totalCredit, totalDebit });
   const page = Number(req.query.page) || 1;
   const limit = Number(req.query.limit) || (isAdmin || isAgent ? 100 : 30);
   const skip = (page - 1) * limit;
   result = await result.skip(skip).limit(limit);
   let noOfTransaction = await Transaction.countDocuments(queryObject);
   const totalPages = Math.ceil(noOfTransaction / limit);
-  // console.log(result);
-  // console.log({ result });
+
   res.status(200).json({
     stat: isAdmin
       ? [
           mtnSMESales,
-          mtnSME2Sales,
-          mtnCGSales,
-          mtnCOUPONSales,
-          gloSMESales,
-          gloCGSales,
+          mtnDIRECTSales,
+          mtnAwoofSales,
           AirtelCGSales,
-          AirtelSMESales,
-          NmobileCGSales,
+          AirtelAWOOFSales,
+          gloCGSales,
+          gloAWOOFSales,
           NmobileSMESales,
         ]
       : [],
     totalPages,
     totalSales,
-    totalProfit,
+    totalProfit: totalProfit,
     totalDebit,
     totalCredit,
     transactions: result,

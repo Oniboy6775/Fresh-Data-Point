@@ -41,6 +41,7 @@ const {
   FETCH_REFERRAL_LIST_SUCCESS,
   CHANGE_DATA_TYPE_OPTION,
   FETCH_COST_AND_SUPPLIER_SUCCESS,
+  FETCH_AVAILABLE_PLANS,
 } = require("./actions");
 
 const reducer = (state, action) => {
@@ -425,6 +426,13 @@ const reducer = (state, action) => {
     return {
       ...state,
       ...action.payload,
+    };
+  }
+  if (action.type === FETCH_AVAILABLE_PLANS) {
+    return {
+      ...state,
+      isLoading: false,
+      availablePlans: action.payload,
     };
   }
   return state;

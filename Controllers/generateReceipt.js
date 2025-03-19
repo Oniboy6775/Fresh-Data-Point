@@ -18,8 +18,8 @@ const Receipt = async (payload) => {
     apiResponse,
     apiResponseId,
   } = payload;
-  let totalCost = costPrice * volumeRatio;
-  const profit = parseInt(amountToCharge - totalCost);
+  // let totalCost = costPrice * volumeRatio;
+  const profit = parseInt(amountToCharge - costPrice);
   // console.log({ costPrice, volumeRatio, cost, profit });
   const newTransaction = Transaction({
     trans_Id: transactionId,

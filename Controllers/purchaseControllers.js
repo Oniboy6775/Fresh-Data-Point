@@ -87,12 +87,20 @@ const buyData = async (req, res) => {
     return res.status(400).json({ msg: "This data is not available" });
   const {
     resellerPrice,
+    partnerPrice,
+    apiPrice,
     plan_type,
     my_price,
     plan: dataVolume,
     volumeRatio,
+    planCostPrice,
+    isAvailable,
+    plan_network,
   } = dataTobuy;
-
+  if (!isAvailable)
+    return res.status(400).json({
+      msg: `${plan_network} ${plan_type} ${dataVolume} is currently unavailable. Try other plans `,
+    });
   let amountToCharge = my_price;
   if (isReseller || isApiUser) amountToCharge = resellerPrice || my_price;
   if (balance < amountToCharge || balance - amountToCharge < 0)
@@ -129,14 +137,6 @@ const buyData = async (req, res) => {
   if (status) {
     console.log({ ...data });
     receipt = await generateReceipt({
-      // ...data,
-      // amountToCharge,
-      // userId,
-      // mobile_number,
-      // balance,
-      // userName: user.userName,
-      // type: "data",
-      // costPrice,
       transactionId: uuid(),
       planNetwork: NETWORK,
       planName: `${plan_type} ${dataVolume}`,
@@ -148,7 +148,9 @@ const buyData = async (req, res) => {
       userName: user.userName,
       type: "data",
       volumeRatio: volumeRatio,
-      costPrice,
+      costPrice: planCostPrice || costPrice * volumeRatio || amountToCharge,
+      response: msg || "",
+      planType: plan_type,
       ...data,
     });
   }
