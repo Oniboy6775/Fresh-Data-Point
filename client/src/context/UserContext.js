@@ -258,12 +258,11 @@ export const AppProvider = ({ children }) => {
     }
   };
   // SERVICES PURCHASE
-  const buyData = async () => {
-    const { phoneNumber, selectedPlan, selectedNetwork, dataSubScriptions } =
-      state;
-    if (!selectedPlan) return toast("Select a plan");
-    const splittedPlan = selectedPlan.split(" ");
-    // const amountToCharge = splittedPlan[2].split("₦")[1];
+  const buyData = async ({ phoneNumber, planId, selectedNetwork }) => {
+    if (!selectedNetwork || selectedNetwork == "select") {
+      toast.warning("Please select a network");
+      return;
+    }
     dispatch({ type: START_LOADING, payload: "buying data..." });
     let networkId;
     if (selectedNetwork === "MTN") networkId = "1";
@@ -271,24 +270,13 @@ export const AppProvider = ({ children }) => {
     if (selectedNetwork === "GLO") networkId = "2";
     if (selectedNetwork === "9MOBILE") networkId = "6";
 
-    const chosenPlan = dataSubScriptions.find((e) => {
-      let dataVolume = splittedPlan[1];
-      let dataType = splittedPlan[splittedPlan.length - 1];
-
-      return (
-        e.plan === dataVolume &&
-        e.plan_type === dataType &&
-        e.plan_network === selectedNetwork
-      );
-    });
-    const { id } = chosenPlan;
     dispatch({ type: START_LOADING, payload: "Buying data..." });
     // console.log(chosenPlan);
     try {
       const { data } = await authFetch.post("/buy/data", {
         network: networkId,
         mobile_number: phoneNumber,
-        plan: id,
+        plan: planId,
       });
       if (state.contactName) addContact({ contactId: "" });
       dispatch({
