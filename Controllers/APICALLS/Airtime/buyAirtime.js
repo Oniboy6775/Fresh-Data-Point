@@ -33,7 +33,8 @@ const buyAirtime = async ({ network, mobile_number, amount }) => {
       apiResponseId: response.data.apiResponseId,
     };
   } catch (error) {
-    return { status: false };
+    let erMsg = error?.response?.data?.msg;
+    return { status: false, msg: erMsg };
   }
 };
 module.exports = buyAirtime;
