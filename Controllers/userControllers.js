@@ -334,11 +334,7 @@ const userData = async (req, res) => {
     user,
     transactions: userTransaction,
     isAdmin: userId === process.env.ADMIN_ID ? true : false,
-    isCouponVendor:
-      userId === process.env.COUPON_VENDOR_FAIZ ||
-      userId === process.env.COUPON_VENDOR_YUSUF
-        ? true
-        : false,
+
     subscriptionPlans: {
       MTN: MTN_SME_PRICE,
       GLO: GLO_PRICE,
